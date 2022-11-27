@@ -1,2 +1,3 @@
-package PACKAGE_NAME;public enum Promotions {
+public enum Promotions {
+
 }
