@@ -1,20 +1,20 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+
 public class Transaction {
     private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
     double sum;
-    double totalSum;
     double finalSum;
     double weight;
     double totalWeight;
     ArrayList<Product> productList;
+    Delivery delivery;
     int count;
 
-    Transaction (Cart cart, String promoCode) {
-       LOGGER.info("Initializing Transaction Constructor...");
+    Transaction(Cart cart, String promoCode, User user) {
+        LOGGER.info("Initializing Transaction Constructor...");
 
         LOGGER.trace("Counting products in the cart");
         count = cart.productList.size();
@@ -22,15 +22,19 @@ public class Transaction {
 
         productList = cart.productList;
         LOGGER.trace("Initializing a calculation of the sum amount");
-        totalSum = calculateSum(productList);
+        sum = calculateSum(productList);
 
         LOGGER.trace("Initializing a calculation of the products total weight");
         totalWeight = calculateWeight(productList);
 
         LOGGER.trace("Initializing a calculation of the totalSum after discount...");
-        finalSum = calculateDiscount(totalSum, promoCode);
+        finalSum = calculateDiscount(sum, promoCode);
         LOGGER.info("The final sum after discount: {}", finalSum);
 
+        System.out.println("Please choose a way of delivery: ");
+        delivery = new Delivery();
+        delivery.showDelivers();
+        // add an option for choosing the delivery.
     }
 
     private double calculateSum(ArrayList<Product> productList) {
@@ -38,9 +42,9 @@ public class Transaction {
         sum = 0;
         for (Product productPrice : productList) {
             sum += productPrice.getPrice();
-            LOGGER.trace("Sum amount after iteration: " + sum);
+            LOGGER.trace("Sum amount after iteration: {}", sum);
         }
-        LOGGER.info("Calculated total amount in the cart: " + sum);
+        LOGGER.info("Calculated total amount in the cart: {}", sum);
         return sum;
     }
 
@@ -54,6 +58,7 @@ public class Transaction {
         LOGGER.info("Calculated total weight of the products in the cart: {} ", weight);
         return weight;
     }
+
     private double calculateDiscount(double sum, String userPromoCode) {
         LOGGER.trace("Running calculateDiscount...");
         Promotion promotion = new Promotion();
@@ -62,5 +67,17 @@ public class Transaction {
 
         LOGGER.info("Discount: {}", discount);
         return sum * (1 - discount);
+    }
+
+    public double getFinalSum() {
+        return finalSum;
+    }
+
+    public double getTotalWeight() {
+        return totalWeight;
+    }
+
+    public int getCount() {
+        return count;
     }
 }

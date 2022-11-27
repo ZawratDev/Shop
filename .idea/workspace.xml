@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="506cb50c-68a7-46f7-838a-06bb304a6079" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Log4JDefaultConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Delivery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Cart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Promotion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Promotion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Promotions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Promotions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +20,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Tag Library Descriptor" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -55,6 +49,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -69,6 +64,12 @@
       <recent name="" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+      <command value="mvn clean install -U" />
+    </option>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -80,12 +81,24 @@
       <workItem from="1669022548999" duration="9144000" />
       <workItem from="1669213846871" duration="9310000" />
       <workItem from="1669277132123" duration="26000" />
-      <workItem from="1669395748365" duration="9745000" />
+      <workItem from="1669395748365" duration="19228000" />
     </task>
+    <task id="LOCAL-00001" summary="The Log4JDefaultConfig.java test class has been deleted.">
+      <created>1669561377295</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669561377295</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="The Log4JDefaultConfig.java test class has been deleted." />
+    <option name="LAST_COMMIT_MESSAGE" value="The Log4JDefaultConfig.java test class has been deleted." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -28,7 +28,11 @@ public class Main {
             LOGGER.trace("Each product name from productList: {}", product.getName());
             LOGGER.trace("Each product ID productList: {}", product.getId());
         }
-        Transaction newTransaction = new Transaction(cart, promoCode);
-    }
 
+        LOGGER.info("Calling Transaction...");
+        Transaction newTransaction = new Transaction(cart, promoCode, seller);
+
+        // LOGGER.info("Calling Payment...");
+        // Payment newPayment = new Payment(newTransaction, seller);
+    }
 }
