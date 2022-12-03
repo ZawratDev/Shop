@@ -14,20 +14,14 @@ import java.util.ArrayList;
 public class Transaction {
 	private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
 	private double sum;
-	private double discountedSum;
 	private double finalSum;
-	private double weight;
-	private double totalWeight;
-	private double deliveryCost;
-	private ArrayList<Product> productList;
-	private Delivery delivery;
-	private Deliverer deliverer;
-	private User userHolder;
-	private Cart cartHolder;
-	private int count;
+	private final double totalWeight;
+	private final User userHolder;
+	private final Cart cartHolder;
+	private final int count;
 
 	public Transaction(Cart cart, String promoCode, User user) {
-		LOGGER.info("Initializing transactions.Transaction Constructor...");
+		LOGGER.info("Initializing Transaction Constructor...");
 
 		userHolder = user;
 		cartHolder = cart;
@@ -37,11 +31,11 @@ public class Transaction {
 		LOGGER.info("product.Product count {}", count);
 
 		System.out.println("Please choose a way of delivery: ");
-		deliverer = getDeliverer();
-		deliveryCost = deliverer.getPrice();
+		Deliverer deliverer = getDeliverer();
+		double deliveryCost = deliverer.getPrice();
 		LOGGER.info("The chosen delivery cost: {}", deliveryCost);
 
-		productList = cart.productList;
+		ArrayList<Product> productList = cart.productList;
 		LOGGER.trace("Initializing a calculation of the sum amount");
 		sum = calculateSum(productList, deliveryCost);
 
@@ -49,7 +43,7 @@ public class Transaction {
 		totalWeight = calculateWeight(productList);
 
 		LOGGER.trace("Initializing a calculation of the totalSum after discount...");
-		discountedSum = calculateDiscount(sum, promoCode);
+		double discountedSum = calculateDiscount(sum, promoCode);
 		LOGGER.info("The final sum after discount: {}", discountedSum);
 	}
 
@@ -69,7 +63,7 @@ public class Transaction {
 
 	private double calculateWeight(ArrayList<Product> productList) {
 		LOGGER.trace("Calculating the weight of the products in the cart");
-		weight = 0;
+		double weight = 0;
 		for (Product productWeight : productList) {
 			weight += productWeight.getWeight();
 			LOGGER.trace("Summary weight after iteration: {}", weight);
@@ -90,7 +84,7 @@ public class Transaction {
 
 	private Deliverer getDeliverer() {
 		LOGGER.trace("Running calculateDeliveryCost...");
-		delivery = new Delivery();
+		Delivery delivery = new Delivery();
 		return delivery.chooseDelivery();
 	}
 

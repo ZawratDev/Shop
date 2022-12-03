@@ -12,7 +12,7 @@ public class Delivery {
 	private static final Scanner SCANNER = new Scanner(System.in);
 
 	public Delivery() {
-		LOGGER.info("Initializing delivery.Delivery constructor");
+		LOGGER.info("Initializing Delivery constructor");
 
 		Deliverer inpost = new Deliverer("INPOST", 9.90);
 		Deliverer ups = new Deliverer("UPS", 14.90);
@@ -37,7 +37,7 @@ public class Delivery {
 		}
 		int userChoose = SCANNER.nextInt() - 1;
 		SCANNER.nextLine(); //to unlock the scanner
-		LOGGER.info("users.User has chosen {} as the deliverer with the price = {}", DELIVERS.get(userChoose).getName(), DELIVERS.get(userChoose).getPrice());
+		LOGGER.info("User has chosen {} as the deliverer with the price = {}", DELIVERS.get(userChoose).getName(), DELIVERS.get(userChoose).getPrice());
 		return DELIVERS.get(userChoose);
 	}
 }

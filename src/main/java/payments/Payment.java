@@ -9,7 +9,7 @@ public class Payment {
     double transactionSum;
     int userId;
     public Payment(Transaction transaction) {
-        LOGGER.info("Initializing payments.Payment Constructor...");
+        LOGGER.info("Initializing Payment Constructor...");
 
         transactionSum = transaction.getFinalSum();
         userId = transaction.getUserHolder()
