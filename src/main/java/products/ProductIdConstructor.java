@@ -1,3 +1,5 @@
+package product;
+
 public class ProductIdConstructor {
     static int productId = 0;
 

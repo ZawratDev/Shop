@@ -1,3 +1,5 @@
+package cart;
+
 import java.util.ArrayList;
 
 public class Cart {
@@ -6,7 +8,7 @@ public class Cart {
     private final User user;
     public ArrayList<Product> productList = new ArrayList<Product>();
 
-    Cart(User activeUser) {
+    public Cart(User activeUser) {
         user = activeUser;
         id = CartIdConstructor.setCartId();
     }

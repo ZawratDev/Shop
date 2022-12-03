@@ -1,8 +1,13 @@
+import cart.Cart;
+import delivery.Deliverer;
+import delivery.Delivery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import product.Product;
+import promotion.Promotion;
+import users.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Transaction {
 	private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
@@ -27,7 +32,7 @@ public class Transaction {
 
 		LOGGER.trace("Counting products in the cart");
 		count = cart.productList.size();
-		LOGGER.info("Product count {}", count);
+		LOGGER.info("product.Product count {}", count);
 
 		System.out.println("Please choose a way of delivery: ");
 		deliverer = getDeliverer();

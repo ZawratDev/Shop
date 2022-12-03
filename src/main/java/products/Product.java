@@ -1,3 +1,5 @@
+package product;
+
 public class Product {
 
     private final int id;
@@ -5,14 +7,14 @@ public class Product {
     private double price;
     private double weight;
 
-    Product(String productName, double productPrice) {
+     public Product(String productName, double productPrice) {
         name = productName;
         price = productPrice;
         weight = -1;
         id = ProductIdConstructor.setProductId();
     }
 
-    Product(String productName, double productPrice, double productWeight ) {
+    public Product(String productName, double productPrice, double productWeight) {
         name = productName;
         price = productPrice;
         weight = productWeight;

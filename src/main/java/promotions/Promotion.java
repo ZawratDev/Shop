@@ -1,3 +1,5 @@
+package promotion;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,13 +21,13 @@ public class Promotion {
     }
 
     public double findPromotionCode(String code) {
-        LOGGER.debug("findPromotionCode in Promotion is running...");
+        LOGGER.debug("findPromotionCode in promotion.Promotion is running...");
         LOGGER.trace("PROMOTION_CODES.keySet(): {}", PROMOTION_CODES.keySet());
 
         for (String promoCode : PROMOTION_CODES.keySet()) {
             LOGGER.debug("findPromotionCode -> promoCode: {}", promoCode);
             if (code.equals(promoCode)) {
-                LOGGER.info("User promotion code: {} exists. Code from the list: {}", code, promoCode);
+                LOGGER.info("users.User promotion code: {} exists. Code from the list: {}", code, promoCode);
                 LOGGER.trace("Returning discount: {}", PROMOTION_CODES.get(promoCode));
                 return PROMOTION_CODES.get(promoCode);
             }
