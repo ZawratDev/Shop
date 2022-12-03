@@ -1,10 +1,12 @@
-import cart.Cart;
+package transactions;
+
+import carts.Cart;
 import delivery.Deliverer;
 import delivery.Delivery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import product.Product;
-import promotion.Promotion;
+import products.Product;
+import promotions.Promotion;
 import users.User;
 
 import java.util.ArrayList;
@@ -24,8 +26,8 @@ public class Transaction {
 	private Cart cartHolder;
 	private int count;
 
-	Transaction(Cart cart, String promoCode, User user) {
-		LOGGER.info("Initializing Transaction Constructor...");
+	public Transaction(Cart cart, String promoCode, User user) {
+		LOGGER.info("Initializing transactions.Transaction Constructor...");
 
 		userHolder = user;
 		cartHolder = cart;

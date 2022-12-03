@@ -1,5 +1,10 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import carts.Cart;
+import payments.Payment;
+import products.Product;
+import transactions.Transaction;
+import users.User;
 
 import java.util.Scanner;
 
@@ -29,10 +34,10 @@ public class Main {
             LOGGER.trace("Each product ID productList: {}", product.getId());
         }
 
-        LOGGER.info("Calling Transaction...");
+        LOGGER.info("Calling transactions.Transaction...");
         Transaction newTransaction = new Transaction(cart, promoCode, seller);
 
-         LOGGER.info("Calling Payment...");
+         LOGGER.info("Calling payments.Payment...");
          Payment newPayment = new Payment(newTransaction);
     }
 }

@@ -1,4 +1,4 @@
-package cart;
+package carts;
 
 public class CartIdConstructor {
     static int cartId = 0;

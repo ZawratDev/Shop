@@ -1,8 +1,10 @@
+package users;
+
 public class User {
     private final int id;
     private final String name;
 
-    User(int userId, String userName) {
+    public User(int userId, String userName) {
         id = userId;
         name = userName;
     }

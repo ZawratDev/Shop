@@ -1,4 +1,4 @@
-package product;
+package products;
 
 public class ProductIdConstructor {
     static int productId = 0;

@@ -1,3 +1,5 @@
+package delivery;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,8 +11,8 @@ public class Delivery {
 	private static final LinkedList<Deliverer> DELIVERS = new LinkedList<>();
 	private static final Scanner SCANNER = new Scanner(System.in);
 
-	Delivery() {
-		LOGGER.info("Initializing Delivery constructor");
+	public Delivery() {
+		LOGGER.info("Initializing delivery.Delivery constructor");
 
 		Deliverer inpost = new Deliverer("INPOST", 9.90);
 		Deliverer ups = new Deliverer("UPS", 14.90);
@@ -35,7 +37,7 @@ public class Delivery {
 		}
 		int userChoose = SCANNER.nextInt() - 1;
 		SCANNER.nextLine(); //to unlock the scanner
-		LOGGER.info("User has chosen {} as the deliverer with the price = {}", DELIVERS.get(userChoose).getName(), DELIVERS.get(userChoose).getPrice());
+		LOGGER.info("users.User has chosen {} as the deliverer with the price = {}", DELIVERS.get(userChoose).getName(), DELIVERS.get(userChoose).getPrice());
 		return DELIVERS.get(userChoose);
 	}
 }

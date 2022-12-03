@@ -1,4 +1,4 @@
-package promotion;
+package promotions;
 
 public enum Promotions {
 
