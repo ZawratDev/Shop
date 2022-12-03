@@ -32,7 +32,7 @@ public class Main {
         LOGGER.info("Calling Transaction...");
         Transaction newTransaction = new Transaction(cart, promoCode, seller);
 
-        // LOGGER.info("Calling Payment...");
-        // Payment newPayment = new Payment(newTransaction, seller);
+         LOGGER.info("Calling Payment...");
+         Payment newPayment = new Payment(newTransaction);
     }
 }

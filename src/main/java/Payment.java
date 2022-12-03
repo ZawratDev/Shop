@@ -1,14 +1,16 @@
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 public class Payment {
     private static final Logger LOGGER = LogManager.getLogger(Payment.class);
-    Payment(Transaction transaction, User user, Delivery deliver) {
+    double transactionSum;
+    int userId;
+    Payment(Transaction transaction) {
         LOGGER.info("Initializing Payment Constructor...");
-        double transactionSum = transaction.getFinalSum();
-        int userId = user.getId();
+
+        transactionSum = transaction.getFinalSum();
+        userId = transaction.getUserHolder()
+                .getId();
     }
-
-
-
 }
