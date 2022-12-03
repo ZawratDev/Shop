@@ -17,7 +17,7 @@ public class Main {
         User seller = new User(1, "Adam");
         Cart cart = new Cart(seller);
 
-        System.out.println("Please provide a promotion code: ");
+        System.out.println("Please provide a promotion code if you have one: ");
         String promoCode = SCANNER.nextLine();
         promoCode = promoCode.trim();
 

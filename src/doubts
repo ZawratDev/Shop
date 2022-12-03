@@ -1,0 +1,18 @@
+Wątpliwości do rozwiązania:
+
+Delivery.java showDeliverers linia 52 i 59
+    Tam jest taki zapis, który powoduje, że jeśli jakiś dostawca zostanie pominięty to dodaje go do listy pominiętych dostawców.
+    Cała funkcja showDeliverers zwraca tę listę. I teraz
+    - Czy to nie jest mylące? showDelivers - owszem, pokazuje dostawców, ale potem jednak coś zwraca.
+        I nie są to porządani dostawcy tylko Ci do wywalenia...
+
+Delivery.java  chooseDelivery linia 39
+    DELIVERERS.remove(removedDeliverers);
+Dalej tę listę przejmuje funkcja, która wywołala showDeliverers i wywala ze STAŁEJ (FINAL) DELIVERERS tych dostawców, którzy zostali skipnięci.
+Robi to po to, żeby użytkownik wpisując odpowiedni numer (na podstawie showDeliverers) wywołał odpowiedniego dostawce (a nie np. tego skpiniętego).
+Ogólnie to działa, pytanie w ogóle dlaczego na FINAL mogę robić jakieś zmiany? Nie powinna ta lista być nietykalna xD?
+Dwa obiekt klasy Delivery wywołuje obiekt klasy Transaction. Więc jak sobie w wywalę kilku dostawców z obiektu klasy Delivery, to
+chyba nic nie szkodzi, bo jest ona wykorzystywana tylko przy tej jednej transakcji? Każda transakcja tworzy własny obiekt klasy Delivery, prawda?
+A jak już przy tym jesteśmy, to czy to w ogóle dobrze? Że każdy obiekt Transactions tworzy obiekt klasy Delivery? Może nie? Może tu jakiś
+Singleton potrzebny? Ale wtedy usuwanie z listy będzie fatalnym pomysłem.
+

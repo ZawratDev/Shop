@@ -28,7 +28,7 @@ public class Transaction {
 
 		LOGGER.trace("Counting products in the cart");
 		count = cart.productList.size();
-		LOGGER.info("product.Product count {}", count);
+		LOGGER.info("Product count {}", count);
 
 		System.out.println("Please choose a way of delivery: ");
 		Deliverer deliverer = getDeliverer();
@@ -83,9 +83,16 @@ public class Transaction {
 	}
 
 	private Deliverer getDeliverer() {
+		LOGGER.info("Checking if the user has a shipping address.");
+
+		if (!userHolder.getDeliveryAddress().isCorrectAddressExist()) {
+			LOGGER.info("Initializing setAddressWizard at-hoc!");
+			System.out.println("We don't have your correct shipping address. Please provide it now: ");
+			userHolder.setDeliveryAddress();
+		}
 		LOGGER.trace("Running calculateDeliveryCost...");
 		Delivery delivery = new Delivery();
-		return delivery.chooseDelivery();
+		return delivery.chooseDelivery(userHolder.getDeliveryAddress());
 	}
 
 	public double getFinalSum() {

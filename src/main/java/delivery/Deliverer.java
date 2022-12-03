@@ -3,9 +3,12 @@ package delivery;
 public class Deliverer {
 private final String name;
 private final Double price;
-	Deliverer(String name, Double price) {
+private final boolean international;
+
+	Deliverer(String name, Double price, boolean isInternational) {
 		this.name = name;
 		this.price = price;
+		international = isInternational;
 	}
 
 	public String getName() {
@@ -14,5 +17,9 @@ private final Double price;
 
 	public Double getPrice() {
 		return price;
+	}
+
+	public boolean isInternational() {
+		return international;
 	}
 }
