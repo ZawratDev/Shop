@@ -19,8 +19,11 @@ public class Transaction {
 	private final User USER_HOLDER;
 	private final Cart CART_HOLDER;
 	private final int ITEM_COUNT;
-	private final Deliverer DELIVERER;
+//	private final Deliverer DELIVERER;
 	private final double DELIVERY_COST;
+
+	private boolean isPaid = false;
+
 
 	public Transaction(Cart cart, String promoCode, User user) {
 		LOGGER.info("Initializing Transaction Constructor...");
@@ -33,8 +36,8 @@ public class Transaction {
 		LOGGER.info("Product count {}", ITEM_COUNT);
 
 		System.out.println("Please choose a way of delivery: ");
-		DELIVERER = getDELIVERER();
-		DELIVERY_COST = DELIVERER.getPrice();
+		DELIVERY_COST = getDELIVERER()
+				.getPrice();
 		LOGGER.info("The chosen delivery cost: {}", DELIVERY_COST);
 
 		ArrayList<Product> productList = cart.productList;
@@ -45,8 +48,8 @@ public class Transaction {
 		TOTAL_WEIGHT = calculateWeight(productList);
 
 		LOGGER.trace("Initializing a calculation of the totalSum after discount...");
-		double discountedSum = calculateDiscount(sum, promoCode);
-		LOGGER.info("The final sum after discount: {}", discountedSum);
+		finalSum = calculateDiscount(sum, promoCode);
+		LOGGER.info("The final sum after discount: {}", finalSum);
 	}
 
 	private double calculateSum(ArrayList<Product> productList, double deliveryCost) {
@@ -117,5 +120,10 @@ public class Transaction {
 
 	public User getUSER_HOLDER() {
 		return USER_HOLDER;
+	}
+
+	public void setIsPaid(boolean isPaid) {
+		LOGGER.info("Setting transaction status to: {}", isPaid);
+		this.isPaid = isPaid;
 	}
 }

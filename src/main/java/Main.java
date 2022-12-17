@@ -5,12 +5,15 @@ import payments.Payment;
 import products.Product;
 import transactions.Transaction;
 import users.User;
+import java.sql.*;
 
 import java.util.Scanner;
 
 public class Main {
     private static final Logger LOGGER = LogManager.getLogger(Main.class);
     private static final Scanner SCANNER = new Scanner(System.in);
+
+
     public static void main(String[] args) {
 
         LOGGER.trace("Creating a user and a cart");
@@ -43,5 +46,6 @@ public class Main {
 
         LOGGER.info("Calling Payment...");
         Payment newPayment = new Payment(newTransaction);
+
     }
 }
