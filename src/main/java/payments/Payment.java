@@ -12,7 +12,7 @@ public class Payment {
         LOGGER.info("Initializing Payment Constructor...");
 
         transactionSum = transaction.getFinalSum();
-        userId = transaction.getUserHolder()
+        userId = transaction.getUSER_HOLDER()
                 .getId();
     }
 }

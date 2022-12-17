@@ -13,7 +13,8 @@ public class User {
         LOGGER.info("Initializing User constructor with userId {} and userName {}.", userId, userName);
         id = userId;
         name = userName;
-        deliveryAddress = new Address();
+//        deliveryAddress = new Address();
+        deliveryAddress = new Address("POLAND", "Morenowa", 1, 12, "80-289"); // do testów
     }
 
     public void setDeliveryAddress() {

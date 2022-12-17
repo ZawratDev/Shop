@@ -14,7 +14,7 @@ public class Address {
 	private Integer houseNumber;
 	private Integer apartmentNumber;
 
-	Address() {
+	public Address() {
 		street = "Unknown";
 		country = "Unknown";
 		postCode = "Unknown";
@@ -22,7 +22,7 @@ public class Address {
 		apartmentNumber = null;
 	}
 
-	Address(String country, String street, Integer houseNumber, String postCode) {
+	public Address(String country, String street, Integer houseNumber, String postCode) {
 		this.street = street;
 		this.houseNumber = houseNumber;
 		this.postCode = postCode;
@@ -30,7 +30,7 @@ public class Address {
 		apartmentNumber = null;
 	}
 
-	Address(String country, String street, Integer houseNumber, String postCode, Integer apartmentNumber) {
+	Address(String country, String street, Integer houseNumber, Integer apartmentNumber, String postCode) {
 		this.country = country;
 		this.street = street;
 		this.houseNumber = houseNumber;
@@ -42,7 +42,7 @@ public class Address {
 		System.out.println("Please provide your address below:");
 
 		System.out.println("Country: ");
-		setCountry(scanner.nextLine());
+		setCountry(scanner.nextLine().toUpperCase());
 
 		System.out.println("street: ");
 		setStreet(scanner.nextLine());

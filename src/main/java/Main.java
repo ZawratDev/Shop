@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         LOGGER.trace("Creating a user and a cart");
+//        User seller = new User(1, "Adam");
         User seller = new User(1, "Adam");
         Cart cart = new Cart(seller);
 
@@ -27,17 +28,20 @@ public class Main {
         Product banana = new Product("banana", 8, 0.8);
         Product kiwi = new Product("kiwi", 15, 0.2);
 
-        cart.addProductToCart(apple).addProductToCart(orange).addProductToCart(banana).addProductToCart(kiwi);
+        cart.addProductToCart(apple)
+                .addProductToCart(orange)
+                .addProductToCart(banana)
+                .addProductToCart(kiwi);
 
         for (Product product : cart.getProductList()) {
-            LOGGER.trace("Each product name from productList: {}", product.getName());
-            LOGGER.trace("Each product ID productList: {}", product.getId());
+            LOGGER.debug("Each product name from productList: {}", product.getName());
+            LOGGER.debug("Each product ID from productList: {}", product.getId());
         }
 
         LOGGER.info("Calling transactions.Transaction...");
         Transaction newTransaction = new Transaction(cart, promoCode, seller);
 
-         LOGGER.info("Calling payments.Payment...");
-         Payment newPayment = new Payment(newTransaction);
+        LOGGER.info("Calling Payment...");
+        Payment newPayment = new Payment(newTransaction);
     }
 }

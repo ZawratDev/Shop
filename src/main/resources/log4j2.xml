@@ -2,11 +2,12 @@
 <Configuration status="WARN">
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
-            <PatternLayout disableAnsi="false"  pattern="%highlight{%d{HH:mm:ss.SSS} [%-5level] %logger{36}.%M() @%L - %msg%n}{FATAL=red bold, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue}"/>
+            <PatternLayout disableAnsi="false"
+                           pattern="%highlight{%d{HH:mm:ss.SSS} [%-5level] %logger{36}.%M() @%L - %msg%n}{FATAL=red bold, ERROR=red, WARN=yellow bold, INFO=green bold, DEBUG=green, TRACE=blue}"/>
         </Console>
-<!--        <Console name="Console" target="SYSTEM_OUT">-->
-<!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %c:%L [PID:%pid] - %msg%n"/>-->
-<!--        </Console>-->
+        <!--        <Console name="Console" target="SYSTEM_OUT">-->
+        <!--            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%-5level] %c:%L [PID:%pid] - %msg%n"/>-->
+        <!--        </Console>-->
     </Appenders>
     <Loggers>
         <Root level="trace">

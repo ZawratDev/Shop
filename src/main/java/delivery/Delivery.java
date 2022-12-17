@@ -5,63 +5,36 @@ import org.apache.logging.log4j.Logger;
 import users.Address;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Delivery {
 	private static final Logger LOGGER = LogManager.getLogger(Delivery.class);
 	private static final LinkedList<Deliverer> DELIVERERS = new LinkedList<>();
 	private static final Scanner SCANNER = new Scanner(System.in);
+	private final LinkedList<Deliverer> deliverersList;
+	public Delivery(Address deliveryAddress) {
+		LOGGER.info("Initializing Delivery constructor...");
+		DeliverersList fullDeliverersList = new DeliverersList();
+		deliverersList = fullDeliverersList.getDELIVERERS_LIST(deliveryAddress);
 
-	public Delivery() {
-		LOGGER.info("Initializing Delivery constructor");
-
-		Deliverer inpost = new Deliverer("INPOST", 9.90, false);
-		Deliverer pocztaPolska = new Deliverer("POCZTA POLSKA", 12.90, false);
-		Deliverer ups = new Deliverer("UPS", 14.90, true);
-		Deliverer dhl = new Deliverer("DHL", 15.90, true);
-		Deliverer dpd = new Deliverer("DPD", 16.00, true);
-		Deliverer fedex = new Deliverer("FEDEX", 16.99, true);
-
-		DELIVERERS.add(inpost);
-		DELIVERERS.add(ups);
-		DELIVERERS.add(dhl);
-		DELIVERERS.add(dpd);
-		DELIVERERS.add(pocztaPolska);
-		DELIVERERS.add(fedex);
 	}
-
-	public Deliverer chooseDelivery(Address deliveryAddress) {
+	public Deliverer chooseDelivery() {
 		LOGGER.info("Initializing choosing delivery...");
-		LOGGER.trace("Checking if international deliverer is needed.");
-		var deliverersToRemove = showDeliverers(!deliveryAddress.getCountry().equals("Poland"));
-		for (Deliverer removedDeliverers : deliverersToRemove) {
-			LOGGER.warn("Deleting {} from the DELIVERERS linkedList!", removedDeliverers.getName());
-			DELIVERERS.remove(removedDeliverers);
-		}
-
+		showDeliverers(deliverersList);
 		int userChoose = SCANNER.nextInt() - 1;
 		SCANNER.nextLine(); //to unlock the scanner
-		LOGGER.info("User has chosen {} as the deliverer with the price = {}", DELIVERERS.get(userChoose).getName(), DELIVERERS.get(userChoose).getPrice());
-		return DELIVERERS.get(userChoose);
+		LOGGER.info("User has chosen {} as the deliverer with the price = {}", deliverersList.get(userChoose).getName(), deliverersList.get(userChoose).getPrice());
+		return deliverersList.get(userChoose);
 	}
 
-	private LinkedList<Deliverer> showDeliverers(boolean onlyInternational) {
+	private void showDeliverers(List<Deliverer> deliverersList) {
 		LOGGER.info("Showing deliverers...");
-		LOGGER.info("Has to be onlyInternational: {}", onlyInternational);
-
-		LinkedList<Deliverer> skippedDeliverers = new LinkedList<>(); //to monitor deliverers that cannot be chosen
-
-		int delivererNumber = 0;
-		for (Deliverer deliverer : DELIVERERS) {
-			if (onlyInternational && !deliverer.isInternational()) {
-				LOGGER.debug("Skipping deliverer {} due to not being international...", deliverer.getName());
-				LOGGER.debug("Adding the {} to the skippedDeliverers lists.", deliverer.getName());
-				skippedDeliverers.add(deliverer);
-				continue;
+			int delivererNumber = 0;
+			LOGGER.trace("Initializing a for-loop to show the correct deliverers");
+			for (Deliverer deliverer : deliverersList) {
+				delivererNumber++;
+				System.out.println(delivererNumber + ". " + deliverer.getName() + " - price: " + deliverer.getPrice() + " zl");
 			}
-			delivererNumber++;
-			System.out.println(delivererNumber + ". " + deliverer.getName() + " - price: " + deliverer.getPrice() + " zl");
-		}
-		return skippedDeliverers;
 	}
 }

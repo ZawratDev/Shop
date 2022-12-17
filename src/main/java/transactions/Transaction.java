@@ -15,32 +15,34 @@ public class Transaction {
 	private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
 	private double sum;
 	private double finalSum;
-	private final double totalWeight;
-	private final User userHolder;
-	private final Cart cartHolder;
-	private final int count;
+	private final double TOTAL_WEIGHT;
+	private final User USER_HOLDER;
+	private final Cart CART_HOLDER;
+	private final int ITEM_COUNT;
+	private final Deliverer DELIVERER;
+	private final double DELIVERY_COST;
 
 	public Transaction(Cart cart, String promoCode, User user) {
 		LOGGER.info("Initializing Transaction Constructor...");
 
-		userHolder = user;
-		cartHolder = cart;
+		USER_HOLDER = user;
+		CART_HOLDER = cart;
 
 		LOGGER.trace("Counting products in the cart");
-		count = cart.productList.size();
-		LOGGER.info("Product count {}", count);
+		ITEM_COUNT = cart.productList.size();
+		LOGGER.info("Product count {}", ITEM_COUNT);
 
 		System.out.println("Please choose a way of delivery: ");
-		Deliverer deliverer = getDeliverer();
-		double deliveryCost = deliverer.getPrice();
-		LOGGER.info("The chosen delivery cost: {}", deliveryCost);
+		DELIVERER = getDELIVERER();
+		DELIVERY_COST = DELIVERER.getPrice();
+		LOGGER.info("The chosen delivery cost: {}", DELIVERY_COST);
 
 		ArrayList<Product> productList = cart.productList;
-		LOGGER.trace("Initializing a calculation of the sum amount");
-		sum = calculateSum(productList, deliveryCost);
+		LOGGER.info("Initializing a calculation of the sum amount");
+		sum = calculateSum(productList, DELIVERY_COST);
 
-		LOGGER.trace("Initializing a calculation of the products total weight");
-		totalWeight = calculateWeight(productList);
+		LOGGER.info("Initializing a calculation of the products total weight");
+		TOTAL_WEIGHT = calculateWeight(productList);
 
 		LOGGER.trace("Initializing a calculation of the totalSum after discount...");
 		double discountedSum = calculateDiscount(sum, promoCode);
@@ -82,36 +84,38 @@ public class Transaction {
 		return sum * (1 - discount);
 	}
 
-	private Deliverer getDeliverer() {
+	private Deliverer getDELIVERER() {
 		LOGGER.info("Checking if the user has a shipping address.");
 
-		if (!userHolder.getDeliveryAddress().isCorrectAddressExist()) {
+		if (!USER_HOLDER.getDeliveryAddress()
+				.isCorrectAddressExist()) {
 			LOGGER.info("Initializing setAddressWizard at-hoc!");
 			System.out.println("We don't have your correct shipping address. Please provide it now: ");
-			userHolder.setDeliveryAddress();
+			USER_HOLDER.setDeliveryAddress();
 		}
+
 		LOGGER.trace("Running calculateDeliveryCost...");
-		Delivery delivery = new Delivery();
-		return delivery.chooseDelivery(userHolder.getDeliveryAddress());
+		Delivery delivery = new Delivery(USER_HOLDER.getDeliveryAddress());
+		return delivery.chooseDelivery();
 	}
 
 	public double getFinalSum() {
 		return finalSum;
 	}
 
-	public double getTotalWeight() {
-		return totalWeight;
+	public double getTOTAL_WEIGHT() {
+		return TOTAL_WEIGHT;
 	}
 
-	public int getCount() {
-		return count;
+	public int getITEM_COUNT() {
+		return ITEM_COUNT;
 	}
 
-	public Cart getCartHolder() {
-		return cartHolder;
+	public Cart getCART_HOLDER() {
+		return CART_HOLDER;
 	}
 
-	public User getUserHolder() {
-		return userHolder;
+	public User getUSER_HOLDER() {
+		return USER_HOLDER;
 	}
 }
