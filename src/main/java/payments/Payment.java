@@ -1,66 +1,55 @@
 package payments;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-
-import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import payments.exceptions.PaymentFailure;
 import transactions.Transaction;
+import transactions.TransactionIdConstructor;
 
 
 public class Payment {
 	private static final Logger LOGGER = LogManager.getLogger(Payment.class);
-	private double transactionSum;
-	private int userId;
-	private final int paymentId;
+	private final int PAYMENT_ID;
+	private final boolean PAYMENT_STATUS;
 
-	private boolean paymentStatus;
-
-	public Payment(Transaction transaction) {
+	public Payment(@NotNull Transaction transaction) {
 		LOGGER.info("Initializing Payment Constructor...");
-		paymentId = PaymentIdConstructor.setPaymentId();
-		LOGGER.debug("PaymentID: {}", paymentId);
+		PAYMENT_ID = PaymentIdConstructor.setPaymentId();
+		LOGGER.info("Creating new payment #{} for transaction #{} with total sum of {}.", PAYMENT_ID, transaction.getTRANSACTION_ID(), transaction.getFinalSum());
 
 
-		transactionSum = transaction.getFinalSum();
-		userId = transaction.getUSER_HOLDER()
-				.getId();
-		try {
-			int paymentIdTEST = 0;
-			redirectToPaymentProvider(paymentIdTEST, transactionSum);
-		}
-		catch (RuntimeException e) {
-			LOGGER.error("Error: ", e);
-		}
+		PAYMENT_STATUS = redirectToPaymentProvider(PAYMENT_ID, transaction.getFinalSum());
+		LOGGER.info("paymentStatus stored: {}", PAYMENT_STATUS);
+
+		LOGGER.info("Sending Transaction #{} the payment #{} status ({})", transaction.getTRANSACTION_ID(), PAYMENT_ID, PAYMENT_STATUS);
+		transaction.setIsPaid(PAYMENT_STATUS);
+
 	}
 
-	private void redirectToPaymentProvider(int paymentId, double transactionSum) {
+	private boolean redirectToPaymentProvider(int paymentId, double transactionSum) {
+		LOGGER.info("Initializing redirectToPaymentProvider...");
 		MockPaymentProcess partnerPaymentProcess = new MockPaymentProcess();
+
 		try {
 			if (!partnerPaymentProcess.pay(paymentId, transactionSum)) {
 				throw new PaymentFailure(paymentId, transactionSum);
 			}
+			LOGGER.info("Payment OK.");
 			System.out.println("Your payment was successful. Thank you for your purchase!");
-			paymentStatus = true;
+			return true;
 		}
 		catch (PaymentFailure e) {
 			LOGGER.error("Payment failed! {}", e, e);
 			System.out.println("The payment went wrong. Try again.");
-			paymentStatus = false;
+			return false;
 		}
 	}
-
-	public int getPaymentId() {
-		return paymentId;
+	public int getPAYMENT_ID() {
+		return PAYMENT_ID;
+	}
+	public boolean getPAYMENT_STATUS() {
+		return PAYMENT_STATUS;
 	}
 }
 

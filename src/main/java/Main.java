@@ -41,11 +41,10 @@ public class Main {
             LOGGER.debug("Each product ID from productList: {}", product.getId());
         }
 
-        LOGGER.info("Calling transactions.Transaction...");
+        LOGGER.info("Calling a new Transaction...");
         Transaction newTransaction = new Transaction(cart, promoCode, seller);
 
-        LOGGER.info("Calling Payment...");
+        LOGGER.info("Calling a new Payment for the Transaction #{}", newTransaction.getTRANSACTION_ID());
         Payment newPayment = new Payment(newTransaction);
-
     }
 }

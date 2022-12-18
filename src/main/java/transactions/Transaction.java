@@ -13,11 +13,13 @@ import java.util.ArrayList;
 
 public class Transaction {
 	private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
+
+	private final int TRANSACTION_ID;
 	private double sum;
 	private double finalSum;
 	private final double TOTAL_WEIGHT;
-	private final User USER_HOLDER;
-	private final Cart CART_HOLDER;
+	private final User USER;
+	private final Cart CART;
 	private final int ITEM_COUNT;
 //	private final Deliverer DELIVERER;
 	private final double DELIVERY_COST;
@@ -27,9 +29,11 @@ public class Transaction {
 
 	public Transaction(Cart cart, String promoCode, User user) {
 		LOGGER.info("Initializing Transaction Constructor...");
+		TRANSACTION_ID = TransactionIdConstructor.setTransactionId();
 
-		USER_HOLDER = user;
-		CART_HOLDER = cart;
+		LOGGER.info("Creating new transaction #{} for user #{} and cart #{}", TRANSACTION_ID, user.getId(), cart.getId());
+		this.USER = user;
+		this.CART = cart;
 
 		LOGGER.trace("Counting products in the cart");
 		ITEM_COUNT = cart.productList.size();
@@ -90,15 +94,15 @@ public class Transaction {
 	private Deliverer getDELIVERER() {
 		LOGGER.info("Checking if the user has a shipping address.");
 
-		if (!USER_HOLDER.getDeliveryAddress()
+		if (!USER.getDeliveryAddress()
 				.isCorrectAddressExist()) {
 			LOGGER.info("Initializing setAddressWizard at-hoc!");
 			System.out.println("We don't have your correct shipping address. Please provide it now: ");
-			USER_HOLDER.setDeliveryAddress();
+			USER.setDeliveryAddress();
 		}
 
 		LOGGER.trace("Running calculateDeliveryCost...");
-		Delivery delivery = new Delivery(USER_HOLDER.getDeliveryAddress());
+		Delivery delivery = new Delivery(USER.getDeliveryAddress());
 		return delivery.chooseDelivery();
 	}
 
@@ -114,12 +118,16 @@ public class Transaction {
 		return ITEM_COUNT;
 	}
 
-	public Cart getCART_HOLDER() {
-		return CART_HOLDER;
+	public Cart getCART() {
+		return CART;
 	}
 
-	public User getUSER_HOLDER() {
-		return USER_HOLDER;
+	public User getUSER() {
+		return USER;
+	}
+
+	public int getTRANSACTION_ID() {
+		return TRANSACTION_ID;
 	}
 
 	public void setIsPaid(boolean isPaid) {
