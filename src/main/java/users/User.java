@@ -9,12 +9,14 @@ public class User {
     private final String name;
     private Address deliveryAddress;
 
-    public User(int userId, String userName) {
-        LOGGER.info("Initializing User constructor with userId {} and userName {}.", userId, userName);
+    public User(int userId, String userName, Address address) {
         id = userId;
         name = userName;
-//        deliveryAddress = new Address();
-        deliveryAddress = new Address("POLAND", "Morenowa", 1, 12, "80-289"); // do testów
+        deliveryAddress = address;
+    }
+    public User(int userId, String userName) {
+        id = userId;
+        name = userName;
     }
 
     public void setDeliveryAddress() {

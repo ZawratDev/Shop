@@ -23,7 +23,7 @@ public class Payment {
 		LOGGER.info("paymentStatus stored: {}", PAYMENT_STATUS);
 
 		LOGGER.info("Sending Transaction #{} the payment #{} status ({})", transaction.getTRANSACTION_ID(), PAYMENT_ID, PAYMENT_STATUS);
-		transaction.setIsPaid(PAYMENT_STATUS);
+		// transaction.setPaid(PAYMENT_STATUS);
 
 	}
 

@@ -30,7 +30,7 @@ public class Address {
 		apartmentNumber = null;
 	}
 
-	Address(String country, String street, Integer houseNumber, Integer apartmentNumber, String postCode) {
+	public Address(String country, String street, Integer houseNumber, Integer apartmentNumber, String postCode) {
 		this.country = country;
 		this.street = street;
 		this.houseNumber = houseNumber;

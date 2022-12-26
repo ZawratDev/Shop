@@ -2,9 +2,6 @@ package payments;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import payments.exceptions.PaymentFailure;
-
-import java.math.BigInteger;
 
 public class MockPaymentProcess {
 	private static final Logger LOGGER = LogManager.getLogger(MockPaymentProcess.class);

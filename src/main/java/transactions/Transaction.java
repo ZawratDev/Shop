@@ -2,136 +2,148 @@ package transactions;
 
 import carts.Cart;
 import delivery.Deliverer;
-import delivery.Delivery;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import products.Product;
-import promotions.Promotion;
 import users.User;
 
-import java.util.ArrayList;
-
 public class Transaction {
-	private static final Logger LOGGER = LogManager.getLogger(Transaction.class);
+	private static final Logger logger = LogManager.getLogger(Transaction.class);
 
 	private final int TRANSACTION_ID;
-	private double sum;
+	private double productSumAmount;
+	private double productSumAmountWithDelivery;
 	private double finalSum;
-	private final double TOTAL_WEIGHT;
+	private double discount;
+	private double totalWeight;
 	private final User USER;
 	private final Cart CART;
-	private final int ITEM_COUNT;
-//	private final Deliverer DELIVERER;
-	private final double DELIVERY_COST;
-
+	private int ITEM_COUNT;
+	private TransactionStatus status;
 	private boolean isPaid = false;
+	private Deliverer deliverer;
+	private double deliveryCost;
 
 
-	public Transaction(Cart cart, String promoCode, User user) {
-		LOGGER.info("Initializing Transaction Constructor...");
+	public Transaction() {
 		TRANSACTION_ID = TransactionIdConstructor.setTransactionId();
-
-		LOGGER.info("Creating new transaction #{} for user #{} and cart #{}", TRANSACTION_ID, user.getId(), cart.getId());
-		this.USER = user;
+		status = TransactionStatus.NEW;
+		this.USER = null;
+		this.CART = null;
+	}
+	public Transaction(Cart cart, User user) {
+		TRANSACTION_ID = TransactionIdConstructor.setTransactionId();
+		status = TransactionStatus.NEW;
 		this.CART = cart;
+		this.USER = user;
 
-		LOGGER.trace("Counting products in the cart");
-		ITEM_COUNT = cart.productList.size();
-		LOGGER.info("Product count {}", ITEM_COUNT);
-
-		System.out.println("Please choose a way of delivery: ");
-		DELIVERY_COST = getDELIVERER()
-				.getPrice();
-		LOGGER.info("The chosen delivery cost: {}", DELIVERY_COST);
-
-		ArrayList<Product> productList = cart.productList;
-		LOGGER.info("Initializing a calculation of the sum amount");
-		sum = calculateSum(productList, DELIVERY_COST);
-
-		LOGGER.info("Initializing a calculation of the products total weight");
-		TOTAL_WEIGHT = calculateWeight(productList);
-
-		LOGGER.trace("Initializing a calculation of the totalSum after discount...");
-		finalSum = calculateDiscount(sum, promoCode);
-		LOGGER.info("The final sum after discount: {}", finalSum);
-	}
-
-	private double calculateSum(ArrayList<Product> productList, double deliveryCost) {
-		LOGGER.trace("Calculating the amount from the products in the cart");
-		sum = 0;
-		for (Product productPrice : productList) {
-			sum += productPrice.getPrice();
-			LOGGER.trace("Sum amount after iteration: {}", sum);
-		}
-
-		LOGGER.trace("Adding delivery costs...");
-		sum += deliveryCost;
-		LOGGER.info("Calculated total amount in the cart: {}", sum);
-		return sum;
-	}
-
-	private double calculateWeight(ArrayList<Product> productList) {
-		LOGGER.trace("Calculating the weight of the products in the cart");
-		double weight = 0;
-		for (Product productWeight : productList) {
-			weight += productWeight.getWeight();
-			LOGGER.trace("Summary weight after iteration: {}", weight);
-		}
-		LOGGER.info("Calculated total weight of the products in the cart: {} ", weight);
-		return weight;
-	}
-
-	private double calculateDiscount(double sum, String userPromoCode) {
-		LOGGER.trace("Running calculateDiscount...");
-		Promotion promotion = new Promotion();
-
-		double discount = promotion.findPromotionCode(userPromoCode);
-
-		LOGGER.info("Discount: {}", discount);
-		return sum * (1 - discount);
-	}
-
-	private Deliverer getDELIVERER() {
-		LOGGER.info("Checking if the user has a shipping address.");
-
-		if (!USER.getDeliveryAddress()
-				.isCorrectAddressExist()) {
-			LOGGER.info("Initializing setAddressWizard at-hoc!");
-			System.out.println("We don't have your correct shipping address. Please provide it now: ");
-			USER.setDeliveryAddress();
-		}
-
-		LOGGER.trace("Running calculateDeliveryCost...");
-		Delivery delivery = new Delivery(USER.getDeliveryAddress());
-		return delivery.chooseDelivery();
-	}
-
-	public double getFinalSum() {
-		return finalSum;
-	}
-
-	public double getTOTAL_WEIGHT() {
-		return TOTAL_WEIGHT;
-	}
-
-	public int getITEM_COUNT() {
-		return ITEM_COUNT;
-	}
-
-	public Cart getCART() {
-		return CART;
-	}
-
-	public User getUSER() {
-		return USER;
 	}
 
 	public int getTRANSACTION_ID() {
 		return TRANSACTION_ID;
 	}
 
-	public void setIsPaid(boolean isPaid) {
-		LOGGER.info("Setting transaction status to: {}", isPaid);
-		this.isPaid = isPaid;
+	public double getProductSumAmount() {
+		return productSumAmount;
+	}
+
+	protected Transaction setProductSumAmount(double productSumAmount) {
+		this.productSumAmount = productSumAmount;
+		return this;
+	}
+
+	protected Transaction setFinalSum(double finalSum) {
+		this.finalSum = finalSum;
+		return this;
+	}
+
+	public double getFinalSum() {
+		return finalSum;
+	}
+
+	public User getUSER() {
+		return USER;
+	}
+
+	public Cart getCART() {
+		return CART;
+	}
+
+	public int getITEM_COUNT() {
+		return ITEM_COUNT;
+	}
+
+	public double getDeliveryCost() {
+		return deliveryCost;
+	}
+
+	public Deliverer getDeliverer() {
+		return deliverer;
+	}
+
+	public TransactionStatus getStatus() {
+		return status;
+	}
+
+	public double getProductSumAmountWithDelivery() {
+		return productSumAmountWithDelivery;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public double getTotalWeight() {
+		return totalWeight;
+	}
+
+	public boolean isPaid() {
+		return isPaid;
+	}
+
+	protected Transaction setITEM_COUNT(int itemCount) {
+		ITEM_COUNT = itemCount;
+		return this;
+	}
+
+	protected Transaction setStatus(TransactionStatus status) {
+		this.status = status;
+		return this;
+	}
+
+	protected Transaction setPaid(boolean paid) {
+		isPaid = paid;
+		return this;
+	}
+
+	protected Transaction setDeliverer(Deliverer deliverer) {
+		this.deliverer = deliverer;
+		return this;
+	}
+
+	protected Transaction setTotalWeight(double totalWeight) {
+		this.totalWeight = totalWeight;
+		return this;
+	}
+
+	protected Transaction setDiscount(double promotion) {
+		logger.info("Setting a promotion to {}%", promotion*100);
+		this.discount = promotion;
+		return this;
+	}
+
+	public Transaction setProductSumAmountWithDelivery(double productSumAmountWithDelivery) {
+		this.productSumAmountWithDelivery = productSumAmountWithDelivery;
+		return this;
 	}
 }
+
+//
+	// logger.trace("Adding delivery costs...");
+	// sum +=deliveryCost;
+	// 	logger.info("Calculated total amount in the cart: {}",sum);
+	// 	return sum;
+	//
+
+
+
+
