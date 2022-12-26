@@ -22,6 +22,7 @@ public class Transaction {
 	private boolean isPaid = false;
 	private Deliverer deliverer;
 	private double deliveryCost;
+	private int paymentId;
 
 
 	public Transaction() {
@@ -44,16 +45,6 @@ public class Transaction {
 
 	public double getProductSumAmount() {
 		return productSumAmount;
-	}
-
-	protected Transaction setProductSumAmount(double productSumAmount) {
-		this.productSumAmount = productSumAmount;
-		return this;
-	}
-
-	protected Transaction setFinalSum(double finalSum) {
-		this.finalSum = finalSum;
-		return this;
 	}
 
 	public double getFinalSum() {
@@ -100,6 +91,16 @@ public class Transaction {
 		return isPaid;
 	}
 
+	protected Transaction setProductSumAmount(double productSumAmount) {
+		this.productSumAmount = productSumAmount;
+		return this;
+	}
+
+	protected Transaction setFinalSum(double finalSum) {
+		this.finalSum = finalSum;
+		return this;
+	}
+
 	protected Transaction setITEM_COUNT(int itemCount) {
 		ITEM_COUNT = itemCount;
 		return this;
@@ -131,18 +132,18 @@ public class Transaction {
 		return this;
 	}
 
-	public Transaction setProductSumAmountWithDelivery(double productSumAmountWithDelivery) {
+	protected Transaction setProductSumAmountWithDelivery(double productSumAmountWithDelivery) {
 		this.productSumAmountWithDelivery = productSumAmountWithDelivery;
 		return this;
 	}
+	protected Transaction setPaymentId(int paymentId) {
+		this.paymentId = paymentId;
+		return this;
+	}
+	public int getPaymentId() {
+		return paymentId;
+	}
 }
-
-//
-	// logger.trace("Adding delivery costs...");
-	// sum +=deliveryCost;
-	// 	logger.info("Calculated total amount in the cart: {}",sum);
-	// 	return sum;
-	//
 
 
 

@@ -7,6 +7,7 @@ import products.Product;
 import products.ProductList;
 import transactions.Transaction;
 import transactions.TransactionService;
+import transactions.exceptions.TransactionInWrongState;
 import users.Address;
 import users.User;
 
@@ -21,7 +22,6 @@ public class Main {
     public static void main(String[] args) {
 
         logger.info("Creating a user");
-//        User seller = new User(1, "Adam");
         User seller = new User(1, "Adam", new Address("POLAND", "Morenowa", 1, 12, "80-289"));
         logger.info("User #{} has been created", seller.getId());
 
@@ -29,7 +29,6 @@ public class Main {
         Cart cart = new Cart(seller);
         logger.info("Cart #{} has been created for user #{}", cart.getId(), seller.getId());
 
-        // cart.
 
         new ProductList()
                 .getProductList()
@@ -42,11 +41,15 @@ public class Main {
         }
 
         logger.info("Initializing a new Transaction...");
-        Transaction transaction = new Transaction(cart, seller);
         TransactionService transactionService = new TransactionService();
-        transaction = transactionService.start(transaction);
-
-        logger.info("Calling a new Payment for the Transaction #{}", transaction.getTRANSACTION_ID());
-        // Payment newPayment = new Payment(transaction);
+        transactionService.createTransaction(cart, seller)
+                .startTransactionProcessing(transactionService.getTransaction());
+        logger.info("Initializing new payment");
+        try {
+        transactionService.startPayment(transactionService.getTransaction());
+        }
+        catch (TransactionInWrongState t) {
+            logger.error("Payment process won't start. Transaction status has wrong state!", t);
+        }
     }
 }
