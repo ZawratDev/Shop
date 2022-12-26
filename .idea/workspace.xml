@@ -4,12 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="506cb50c-68a7-46f7-838a-06bb304a6079" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Delivery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Payment.java" afterDir="false" />
+    <list default="true" id="506cb50c-68a7-46f7-838a-06bb304a6079" name="Changes" comment="Created PaymentManager to manage Payment entity. Added PaymentStatus enum for setting-up the status of processed payments.&#10;Created TransactionInWrongState exception to be thrown when Transaction.status will have unexpected value while processing.&#10;Created some very simple test for few methods in PaymentManager and TransactionService.">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/jdbc/test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/payments/PaymentManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/payments/PaymentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/transactions/exceptions/TransactionInWrongState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/payments/PaymentManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/transactions/TransactionServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/payments/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/payments/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transactions/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transactions/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/transactions/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/transactions/TransactionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/payments/PaymentTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,17 +29,34 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Tag Library Descriptor" />
+        <option value="Interface" />
+        <option value="Enum" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2HqpbwPIkeW6M7rFZLnxo8jGvJI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -45,6 +72,8 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -53,12 +82,27 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Colors"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "PostgreSQL"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Privte_Workspace\ordering" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="transactions" />
+      <recent name="payments" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="" />
@@ -69,6 +113,93 @@
       <command value="mvn clean install" />
       <command value="mvn clean install -U" />
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="jdbc.test" />
+      <module name="ordering" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="jdbc.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransactionServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ordering" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="transactions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="transactions" />
+      <option name="MAIN_CLASS_NAME" value="transactions.TransactionServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransactionServiceTest.startPaymentReturn" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ordering" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="transactions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="transactions" />
+      <option name="MAIN_CLASS_NAME" value="transactions.TransactionServiceTest" />
+      <option name="METHOD_NAME" value="startPaymentReturn" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransactionServiceTest.startPaymentThrowsTransactionInWrongState" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ordering" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="transactions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="transactions" />
+      <option name="MAIN_CLASS_NAME" value="transactions.TransactionServiceTest" />
+      <option name="METHOD_NAME" value="startPaymentThrowsTransactionInWrongState" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransactionServiceTest.startPaymentThrowsTransactionInWrongStateWithNewStatus" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ordering" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="transactions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="transactions" />
+      <option name="MAIN_CLASS_NAME" value="transactions.TransactionServiceTest" />
+      <option name="METHOD_NAME" value="startPaymentThrowsTransactionInWrongStateWithNewStatus" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.test" />
+        <item itemvalue="JUnit.TransactionServiceTest" />
+        <item itemvalue="JUnit.TransactionServiceTest.startPaymentReturn" />
+        <item itemvalue="JUnit.TransactionServiceTest.startPaymentThrowsTransactionInWrongStateWithNewStatus" />
+        <item itemvalue="JUnit.TransactionServiceTest.startPaymentThrowsTransactionInWrongState" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -81,7 +212,13 @@
       <workItem from="1669022548999" duration="9144000" />
       <workItem from="1669213846871" duration="9310000" />
       <workItem from="1669277132123" duration="26000" />
-      <workItem from="1669395748365" duration="19228000" />
+      <workItem from="1669395748365" duration="20240000" />
+      <workItem from="1671787991317" duration="287000" />
+      <workItem from="1671788289544" duration="28515000" />
+      <workItem from="1671968202149" duration="3930000" />
+      <workItem from="1671999448533" duration="9453000" />
+      <workItem from="1672051470986" duration="1510000" />
+      <workItem from="1672055636369" duration="28064000" />
     </task>
     <task id="LOCAL-00001" summary="The Log4JDefaultConfig.java test class has been deleted.">
       <created>1669561377295</created>
@@ -90,15 +227,53 @@
       <option name="project" value="LOCAL" />
       <updated>1669561377295</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added the Delivery.java for choosing a delivery option.&#10;Added the Payment.java for preparing the payment (in the future).&#10;Transaction.java has new function in constructor that shows possible delivery options. &#10;From now, Transaction.java is taking 3 parameter (the third one is a seller)">
+      <created>1669582105744</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1669582105744</updated>
+    </task>
+    <task id="LOCAL-00003" summary="A transaction processing has been refactored. Now there is a TransactionService that is coordinating the whole process. Big classes have been split up to smaller classes to provide a clean code that will be easy to maintain and provide more of OOP workflow.">
+      <created>1672051684438</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672051684438</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="The Log4JDefaultConfig.java test class has been deleted." />
-    <option name="LAST_COMMIT_MESSAGE" value="The Log4JDefaultConfig.java test class has been deleted." />
+    <MESSAGE value="Added the Delivery.java for choosing a delivery option.&#10;Added the Payment.java for preparing the payment (in the future).&#10;Transaction.java has new function in constructor that shows possible delivery options. &#10;From now, Transaction.java is taking 3 parameter (the third one is a seller)" />
+    <MESSAGE value="A transaction processing has been refactored. Now there is a TransactionService that is coordinating the whole process. Big classes have been split up to smaller classes to provide a clean code that will be easy to maintain and provide more of OOP workflow." />
+    <MESSAGE value="Created PaymentManager to manage Payment entity. Added PaymentStatus enum for setting-up the status of processed payments.&#10;Created TransactionInWrongState exception to be thrown when Transaction.status will have unexpected value while processing.&#10;Created some very simple test for few methods in PaymentManager and TransactionService." />
+    <option name="LAST_COMMIT_MESSAGE" value="Created PaymentManager to manage Payment entity. Added PaymentStatus enum for setting-up the status of processed payments.&#10;Created TransactionInWrongState exception to be thrown when Transaction.status will have unexpected value while processing.&#10;Created some very simple test for few methods in PaymentManager and TransactionService." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

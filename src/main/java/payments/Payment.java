@@ -9,47 +9,33 @@ import transactions.TransactionIdConstructor;
 
 
 public class Payment {
-	private static final Logger LOGGER = LogManager.getLogger(Payment.class);
+	private static final Logger logger = LogManager.getLogger(Payment.class);
 	private final int PAYMENT_ID;
-	private final boolean PAYMENT_STATUS;
+	private PaymentStatus paymentStatus;
+	private int transactionId;
 
-	public Payment(@NotNull Transaction transaction) {
-		LOGGER.info("Initializing Payment Constructor...");
+	public Payment() {
 		PAYMENT_ID = PaymentIdConstructor.setPaymentId();
-		LOGGER.info("Creating new payment #{} for transaction #{} with total sum of {}.", PAYMENT_ID, transaction.getTRANSACTION_ID(), transaction.getFinalSum());
-
-
-		PAYMENT_STATUS = redirectToPaymentProvider(PAYMENT_ID, transaction.getFinalSum());
-		LOGGER.info("paymentStatus stored: {}", PAYMENT_STATUS);
-
-		LOGGER.info("Sending Transaction #{} the payment #{} status ({})", transaction.getTRANSACTION_ID(), PAYMENT_ID, PAYMENT_STATUS);
-		transaction.setIsPaid(PAYMENT_STATUS);
-
+		paymentStatus = PaymentStatus.NEW;
+	}
+	protected int getTransactionId() {
+		return transactionId;
 	}
 
-	private boolean redirectToPaymentProvider(int paymentId, double transactionSum) {
-		LOGGER.info("Initializing redirectToPaymentProvider...");
-		MockPaymentProcess partnerPaymentProcess = new MockPaymentProcess();
-
-		try {
-			if (!partnerPaymentProcess.pay(paymentId, transactionSum)) {
-				throw new PaymentFailure(paymentId, transactionSum);
-			}
-			LOGGER.info("Payment OK.");
-			System.out.println("Your payment was successful. Thank you for your purchase!");
-			return true;
-		}
-		catch (PaymentFailure e) {
-			LOGGER.error("Payment failed! {}", e, e);
-			System.out.println("The payment went wrong. Try again.");
-			return false;
-		}
+	protected Payment setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
+		return this;
 	}
-	public int getPAYMENT_ID() {
+	protected int getPAYMENT_ID() {
 		return PAYMENT_ID;
 	}
-	public boolean getPAYMENT_STATUS() {
-		return PAYMENT_STATUS;
+	protected PaymentStatus getPaymentStatus() {
+		return paymentStatus;
 	}
+	protected Payment setPaymentStatus(PaymentStatus paymentStatus) {
+		this.paymentStatus = paymentStatus;
+		return this;
+	}
+
 }
 
